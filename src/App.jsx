@@ -66,6 +66,13 @@ function App() {
     setTodoToDelete(null)  // Reset dell'ID
   }
 
+  // Funzione per cancellare tutti i todos
+  const clearAllTodos = () => {
+    if (window.confirm('Sei sicuro di voler cancellare tutti i todos? Questa azione non può essere annullata.')) {
+      setTodos([])  // Svuota l'array
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
@@ -81,6 +88,18 @@ function App() {
         onToggle={toggleTodo}
         onDelete={handleDeleteClick}
       />
+
+      {/* Bottone cancella tutto - visibile solo se ci sono todos */}
+      {todos.length > 0 && (
+        <div className="max-w-sm mx-auto mt-4">
+          <button
+            onClick={clearAllTodos}
+            className="w-full px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors"
+          >
+            Cancella tutti i todos
+          </button>
+        </div>
+      )}
 
       {/* Modal di conferma eliminazione */}
       <DeleteModal
